@@ -10,7 +10,7 @@ import pandas as pd
 # pd tells Python to look at the pandas library we imported earlier.
 
 # tells Python to use the function .read_csv() to read the file survey_results_public.csv.
-df = pd.read_csv('Sustainable_Product_Servi_eSystem_Elements.csv')
+df = pd.read_csv('StudentsPerformance.csv')
 
 
 #We do need to tell .head() what DataFrame to look at, 
@@ -29,20 +29,21 @@ df.shape
 
 #The value_counts() function looks at a single column of data at a time and counts how many instances of each unique entry that column contains.
 
-df['Occupation'].value_counts()
+#df['lunch'].value_counts()
 
 
-df['Education'].value_counts()
+#df['education'].value_counts()
 
 
-df['Gender'].value_counts()
+#df['gender'].value_counts()
+
+#df['reading score'].value_counts()
+
 
 #However, if we set normalize to True, it will “normalize” the counts by representing them 
 #as a percentage of the total number of rows in the pandas series we’ve specified.
 
-#df['Occupation'].value_counts(normalize="Studying")
-
-
+df['education'].value_counts(normalize="master's degree")
 
 #Let’s try the same thing on another interesting Yes/No question: 
 #    “Do you believe that you need to be a manager to make more money?” 
@@ -55,60 +56,45 @@ df['Gender'].value_counts()
 #This tells Python to take whatever we’ve just given it and plot the results in a bar graph.
 #(We could replace 'bar' with 'pie' to get a pie chart instead, if we wanted).
 
-#df['SocialMedia'].value_counts().plot(kind="bar")
+#df['reading score'].value_counts().plot(kind="bar")
 
 #Specifically, let’s add two:
 
-#An argument called figsize that defines the size of the chart in the form of a width and height in inches (i.e. (15,7)
+#An argument called reading score that defines the size of the chart in the form of a width and height in inches (i.e. (15,7)
 #An argument called color that defines the color of the bars.
 
 # #61D199, Dataquest’s green color
 
 
-#df['SocialMedia'].value_counts().plot(kind="bar", figsize=(15,7), color="#61d199")
+#df['reading score'].value_counts().plot(kind="bar", figsize=(15,7), color="#61d199")
 
 
-#said_no = df[df['BetterLife'] == 'No']
-#said_no.head(3)
-#said_no.shape
-#df['BetterLife'].value_counts()
+said_no = df[df['race'] == 'group A']
+said_no.head(3)
+said_no.shape
 
-#said_yes = df[df['BetterLife'] == 'Yes']
-
-
-#print(said_no['Age'].mean(),
- #     said_yes['Age'].mean(),
-  #    said_no['Age'].median(),
-   #   said_yes['Age'].median()
-    # )
-
-#over50 = df[df['Age'] >= 50]
-#under25 = df[df['Age'] <= 25]
+said_yes = df[df['lunch'] == 'standard']
 
 
-#print(over50['BetterLife'].value_counts(normalize=True))
-#print(under25['BetterLife'].value_counts(normalize=True))
+print(said_no['math score'].mean(),
+      said_yes['math score'].mean(),
+      said_no['math score'].median(),
+      said_yes['math score'].median()
+     )
+
+over60 = df[df['math score'] >= 60]
+under50 = df[df['math score'] <= 50]
 
 
-#print(len(over50))
-#print(len(under25))
-
-#filtered_1 = df[(df['BetterLife'] == 'Yes') & (df['Country'] == 'Malaysia')]
+print(over60['gender'].value_counts(normalize="female"))
+print(under50['gender'].value_counts(normalize="male"))
 
 
-#print(filtered_1['BetterLife'].value_counts())
-#print(filtered_1['Country'].value_counts())
+print(len(over60))
+print(len(under50))
 
-#filtered = df[(df['BetterLife'] == 'Yes') & (df['Age'] >= 50) & (df['Country'] == 'India') &~ (df['Hobbyist'] == "Yes") &~ (df['OpenSourcer'] == "Never")]
-
-#df["LanguageWorkedWith"].head()
+filtered_1 = df[(df['gender'] == 'female') & (df['country'] == 'pakistan')]
 
 
-#python_bool = df["LanguageWorkedWith"].str.contains('Python')
-#python_bool.value_counts(normalize=True)
-
-
-#lang_lists = df["LanguageWorkedWith"].str.split(';', expand=True)
-#lang_lists.head()
-
-#lang_df.stack().value_counts().plot(kind='bar', figsize=(15,7), color="#61d199")
+print(filtered_1['gender'].value_counts())
+print(filtered_1['country'].value_counts())
